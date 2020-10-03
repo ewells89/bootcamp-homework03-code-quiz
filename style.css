@@ -1,0 +1,25 @@
+li {
+    font-size:24px;
+}
+
+a {
+    color:darkorchid; 
+}
+
+.quizBox {
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
+    width: 40%;
+    margin:auto;
+}
+
+#start {
+    background-color:darkorchid;
+    color:white;
+}
+
+#answer {
+    color:gray;
+    font-style:italic;
+}
