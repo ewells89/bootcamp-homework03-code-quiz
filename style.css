@@ -6,7 +6,15 @@ a {
     color:darkorchid; 
 }
 
-.quizBox {
+h2 {
+    text-align:left;
+}
+
+p {
+    text-align:left;
+    margin:4px;
+}
+#quizBox {
     text-align:center;
     margin-top:20px;
     margin-bottom:20px;
@@ -17,6 +25,15 @@ a {
 #start {
     background-color:darkorchid;
     color:white;
+}
+
+#choices {
+    background-color:darkorchid;
+    color:white;
+    display:inline-block;
+ 
+
+    /* width:40%; */
 }
 
 #answer {
