@@ -4,12 +4,9 @@ var timer = 60;
 var start = document.getElementById("start");
 var quizBox = document.getElementById("quizBox");
 
-
-
 var currentQuestion = 0;
 
 // Question and Answers object
-
 var quizQuestions = [
     {
         question: "Commonly used data types DO NOT include:",
@@ -62,76 +59,102 @@ function getContent(){
     quizBox.style.display = "none";
 
     // Create Div wrapper for question and answers
+
+    
     var questionDiv = document.createElement("div")
     questionDiv.setAttribute("id","quizBox")
     document.body.append(questionDiv);
 
-    // Generate the text to display for the question
-    var next = document.createElement("h2");
-    next.textContent = quizQuestions[currentQuestion].question;
-    questionDiv.appendChild(next);
-    
-    // Generate the buttons with the possible answers for the question
-    for(var i=0; i < quizQuestions[currentQuestion].answers.length; i++){
-        var answerParagraph = document.createElement("p");
-        questionDiv.appendChild(answerParagraph);
+    // IF statement checks the length of the available questions to show the end of the quiz if all questions have been asked.
+    if(currentQuestion >= quizQuestions.length){
+        var complete = document.createElement("h2");
+        
+        complete.textContent = "All done!"
+        questionDiv.append(complete)
 
-        var answerButton = document.createElement("button");
-        answerButton.setAttribute("type", "button");
-        answerButton.setAttribute("class", "btn");
-        answerButton.setAttribute("id", "choices");
-        answerButton.textContent = quizQuestions[currentQuestion].answers[i];
-        answerParagraph.append(answerButton);
-    }
+            console.log("this is the end!")
 
-    // Event Listener for Choice Buttons
-    questionDiv.addEventListener("click",
-        function(event){
-            if(event.target.matches("button")){
-                console.log("You picked the next question!");
-                // console.log(currentQuestion);
-                
-                getAnswer();
-                // Function to get and display answer
-                function getAnswer(){
-                    questionDiv.style.display = "none";
+    }else{
+        // Generate the text to display for the question
+        var next = document.createElement("h2");
+        next.textContent = quizQuestions[currentQuestion].question;
+        questionDiv.appendChild(next);
+        
+        // Generate the buttons with the possible answers for the question
+        for(var i=0; i < quizQuestions[currentQuestion].answers.length; i++){
+            
+        
+            
+            var answerParagraph = document.createElement("p");
+            questionDiv.appendChild(answerParagraph);
 
-                    console.log ("The response will be displayed here!");
-                    var userAnswer = event.target.textContent;
-                    var correctAnswer = quizQuestions[currentQuestion].correct;
-                        console.log(correctAnswer);
-
-
-                    if(userAnswer === correctAnswer){
-                        var messageCorrect = document.createElement("p");
-                        var hr = document.createElement("hr");
-                        
-                        messageCorrect.setAttribute("id","answer");
-                        messageCorrect.textContent= "Correct!";
-                        questionDiv.append(hr);
-                        questionDiv.append(messageCorrect);
-
-                    } else{
-                        var messageIncorrect = document.createElement("p");
-                        var hr = document.createElement("hr");
-
-                        messageIncorrect.setAttribute("id","answer");
-                        messageIncorrect.textContent= "Incorrect! The correct answer was " + correctAnswer +".";
-                        questionDiv.append(hr);
-                        questionDiv.append(messageIncorrect);
-
-                    }
-                    
-                    currentQuestion++;
-                    getContent();
-                }
-            }
+            var answerButton = document.createElement("button");
+            answerButton.setAttribute("type", "button");
+            answerButton.setAttribute("class", "btn");
+            answerButton.setAttribute("id", "choices");
+            answerButton.textContent = quizQuestions[currentQuestion].answers[i];
+            answerParagraph.append(answerButton);
         }
 
-    )
+        // Event Listener for Choice Buttons
+        questionDiv.addEventListener("click",
+            function(event){
+                if(event.target.matches("button")){
+                    // console.log("You picked the next question!");
+                    // console.log(currentQuestion);
+                    
+                   
+                    questionDiv.style.display = "none";
+                    currentQuestion++;
+                    getContent();
+                    
+                    getAnswer();
+                   
+                    // Function to get and display answer
+                    function getAnswer(){
 
-    if(currentQuestion > quizQuestions.length){
-        console.log("this is the end!")
+                        // console.log ("The response will be displayed here!");
+
+                        // answerDiv.style.display = "none"
+                        
+
+                        var answerDiv = document.createElement("div")
+                        answerDiv.setAttribute("id","quizBox")
+                        document.body.append(answerDiv);
+
+
+                        var userAnswer = event.target.textContent;
+                        var correctAnswer = quizQuestions[currentQuestion-1].correct;
+                            console.log(correctAnswer);
+
+
+                        if(userAnswer === correctAnswer){
+                            var messageCorrect = document.createElement("p");
+                            var hr = document.createElement("hr");
+                            
+                            messageCorrect.setAttribute("id","answer");
+                            messageCorrect.textContent= "Correct!";
+                            answerDiv.append(hr);
+                            answerDiv.append(messageCorrect);
+
+                        }else{
+                            var messageIncorrect = document.createElement("p");
+                            var hr = document.createElement("hr");
+
+                            messageIncorrect.setAttribute("id","answer");
+                            messageIncorrect.textContent= "Incorrect! The correct answer was " + correctAnswer +".";
+                            answerDiv.append(hr);
+                            answerDiv.append(messageIncorrect);
+
+                        }
+                        
+
+                    }
+                }
+            }
+
+        )
+
     }
 
 }
@@ -144,5 +167,9 @@ function getContent(){
 //     timer--;
 //     }, 1000);
 
-
+// TO DO
+    // give scores to correct/incorrect answers
+    // create logic for countdown timer
+    // deduct time for incorrect answers
+    // save high score to local memory
 
